@@ -4,16 +4,16 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@Entity
 public class Device {
 
     @Id
     @Column(name = "mac_address")
     private String macAddress;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private DeviceModel model;
 
     @Column(name = "override_fragment")

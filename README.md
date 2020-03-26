@@ -45,9 +45,9 @@ codecs=G711,G729,OPUS # From application.properties
 {
   "username" : "john",              // From database
   "password" : "doe",               // From database
-  "domain" : "sip.voverc.com",      // From application.properties
-  "port" : "5060",                  // From application.properties
-  "codecs" : ["G711","G729","OPUS"] // from application.properties
+  "domain" : "sip.voverc.com",      application.yml
+  "port" : "5060",                  application.yml
+  "codecs" : ["G711","G729","OPUS"] application.yml
 }
 ```
 
@@ -82,9 +82,9 @@ timeout=10
 {
   "username" : "john",                // From database
   "password" : "doe",                 // From database
-  "domain" : "sip.anotherdomain.com", // From override fragment (replaced application.properties)
-  "port" : "5161",                    // From override fragment (replaced application.properties)
-  "codecs" : ["G711","G729","OPUS"],  // From application.properties
+  "domain" : "sip.anotherdomain.com", application.yml
+  "port" : "5161",                    application.yml
+  "codecs" : ["G711","G729","OPUS"],  application.yml
   "timeout" : 10                      // From override fragment (added)
 }
 ```
