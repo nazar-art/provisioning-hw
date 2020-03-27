@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @ConfigurationProperties("provisioning")
 public class ProvisioningProperties {
+
     private String domain;
     private int port;
     @Singular

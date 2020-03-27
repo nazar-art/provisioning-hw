@@ -25,7 +25,7 @@ public class ParserUtils {
             String[] array = line.split("=");
             result = array[1].trim();
         } else {
-            throw new IllegalArgumentException("wrong property format for: " + line);
+            throw new IllegalArgumentException("Invalid property format for: " + line);
         }
         return result;
     }

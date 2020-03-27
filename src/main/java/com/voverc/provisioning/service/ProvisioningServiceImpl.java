@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 import static com.voverc.provisioning.dto.OverrideFragment.DOMAIN;
 import static com.voverc.provisioning.dto.OverrideFragment.PORT;
 import static com.voverc.provisioning.dto.OverrideFragment.TIMEOUT;
+import static com.voverc.provisioning.utils.ParserUtils.*;
 
 
 @Slf4j
@@ -44,44 +45,50 @@ public class ProvisioningServiceImpl implements ProvisioningService {
         // additional provisioning flow
         if (device.getOverrideFragment() != null) {
 
-            // check if format is property or json
             String fragment = device.getOverrideFragment();
-            FragmentDTO dto = (ParserUtils.isPropertyFormat(fragment)) ? parsePropertiesFormat(fragment) : parseJsonFormat(fragment);
+            FragmentDTO dto = (isPropertyFormat(fragment))
+                    ? parsePropertiesFragment(fragment)
+                    : parseJsonFragment(fragment);
 
             BeanUtils.copyProperties(dto, fileResponse);
         }
 
+        log.debug("For MAC_ADDRESS: {}, CONFIGURATION_FILE: {}", macAddress, fileResponse);
         return fileResponse;
     }
 
 
     @SneakyThrows
-    private FragmentDTO parseJsonFormat(String fragment) {
-        log.debug("parse override fragments at json format");
+    private FragmentDTO parseJsonFragment(String fragment) {
+        log.debug("JSON_FORMAT_FRAGMENT: {}", fragment);
 
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(fragment, FragmentDTO.class);
+        FragmentDTO fragmentDTO = mapper.readValue(fragment, FragmentDTO.class);
+
+        log.debug("PARSED_FRAGMENT: {}", fragmentDTO);
+        return fragmentDTO;
     }
 
-    private FragmentDTO parsePropertiesFormat(String fragment) {
-        log.debug("parse override fragments at properties format");
+    private FragmentDTO parsePropertiesFragment(String fragment) {
+        log.debug("PROPERTIES_FORMAT_FRAGMENT: {}", fragment);
 
         FragmentDTO fragmentDTO = new FragmentDTO();
         Stream<String> lines = Arrays.stream(fragment.split("\n"));
 
         lines.forEach(line -> {
             if (line.contains(DOMAIN.getLowerCaseName())) {
-                fragmentDTO.setDomain(ParserUtils.getPropertyValue(line));
+                fragmentDTO.setDomain(getPropertyValue(line));
 
             } else if (line.contains(PORT.getLowerCaseName())) {
-                String port = ParserUtils.getPropertyValue(line);
+                String port = getPropertyValue(line);
                 fragmentDTO.setPort(Integer.parseInt(port));
 
             } else if (line.contains(TIMEOUT.getLowerCaseName())) {
-                String timeout = ParserUtils.getPropertyValue(line);
+                String timeout = getPropertyValue(line);
                 fragmentDTO.setTimeout(Integer.parseInt(timeout));
             }
         });
+        log.debug("PARSED_FRAGMENT: {}", fragmentDTO);
         return fragmentDTO;
     }
 }

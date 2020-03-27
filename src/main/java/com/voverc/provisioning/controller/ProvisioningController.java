@@ -21,6 +21,7 @@ public class ProvisioningController {
 
     private ProvisioningServiceImpl provisioningService;
 
+
     @GetMapping(value = "/provisioning/{macAddress}")
     public ResponseEntity<ConfigurationFileResponse> getProvisioningFile(@PathVariable String macAddress) {
         return ResponseEntity.ok(provisioningService.getProvisioningFile(macAddress));
