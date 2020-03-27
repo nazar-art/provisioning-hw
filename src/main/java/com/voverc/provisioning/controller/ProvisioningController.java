@@ -32,6 +32,6 @@ public class ProvisioningController {
     @ExceptionHandler(NotPresentedInDbException.class)
     public ResponseEntity notPresentedInDbHandler(NotPresentedInDbException ex) {
         log.error(ex.getMessage(), ex);
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
 }
