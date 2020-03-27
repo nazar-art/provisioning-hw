@@ -1,6 +1,5 @@
 package com.voverc.provisioning.utils;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;

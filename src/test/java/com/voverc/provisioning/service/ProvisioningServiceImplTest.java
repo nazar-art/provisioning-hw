@@ -29,11 +29,11 @@ public class ProvisioningServiceImplTest {
     private DeviceRepository repository;
 
     private ProvisioningProperties properties = ProvisioningProperties.builder()
-                .domain("sip.test.com")
-                .port(9999)
-                .codec("G911")
-                .codec("G922")
-                .build();
+            .domain("sip.test.com")
+            .port(9999)
+            .codec("G911")
+            .codec("G922")
+            .build();
 
     private ProvisioningService provisioningService;
 
