@@ -67,4 +67,11 @@ public class ProvisioningRestControllerTest {
                 .andExpect(jsonPath("$.codecs", hasItem("GB")))
                 .andExpect(jsonPath("$.timeout").value("5"));
     }
+
+    @Test
+    public void ifMacAddressIsEmptyThrowException() throws Exception {
+        mockMvc.perform(get("/api/v1/provisioning/")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }
