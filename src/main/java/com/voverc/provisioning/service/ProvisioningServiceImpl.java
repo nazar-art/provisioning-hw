@@ -7,10 +7,10 @@ import com.voverc.provisioning.entity.ConfigurationFileResponse;
 import com.voverc.provisioning.entity.Device;
 import com.voverc.provisioning.exception.NotPresentedInDbException;
 import com.voverc.provisioning.repository.DeviceRepository;
-import com.voverc.provisioning.utils.ParserUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.Validate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,8 @@ import java.util.stream.Stream;
 import static com.voverc.provisioning.dto.OverrideFragment.DOMAIN;
 import static com.voverc.provisioning.dto.OverrideFragment.PORT;
 import static com.voverc.provisioning.dto.OverrideFragment.TIMEOUT;
-import static com.voverc.provisioning.utils.ParserUtils.*;
+import static com.voverc.provisioning.utils.ParserUtils.getPropertyValue;
+import static com.voverc.provisioning.utils.ParserUtils.isPropertyFormat;
 
 
 @Slf4j
@@ -33,6 +34,7 @@ public class ProvisioningServiceImpl implements ProvisioningService {
 
     @Override
     public ConfigurationFileResponse getProvisioningFile(String macAddress) {
+        Validate.notNull(macAddress, "mac address can not be null");
 
         Device device = deviceRepository.findById(macAddress)
                 .orElseThrow(() -> new NotPresentedInDbException(macAddress));
@@ -46,9 +48,9 @@ public class ProvisioningServiceImpl implements ProvisioningService {
         if (device.getOverrideFragment() != null) {
 
             String fragment = device.getOverrideFragment();
-            FragmentDTO dto = (isPropertyFormat(fragment))
-                    ? parsePropertiesFragment(fragment)
-                    : parseJsonFragment(fragment);
+            FragmentDTO dto = (isPropertyFormat(fragment)) ?
+                    parsePropertiesFragment(fragment) :
+                    parseJsonFragment(fragment);
 
             BeanUtils.copyProperties(dto, fileResponse);
         }
@@ -60,17 +62,14 @@ public class ProvisioningServiceImpl implements ProvisioningService {
 
     @SneakyThrows
     private FragmentDTO parseJsonFragment(String fragment) {
-        log.debug("JSON_FORMAT_FRAGMENT: {}", fragment);
+        Validate.notNull(fragment, "fragment can not be null");
 
         ObjectMapper mapper = new ObjectMapper();
-        FragmentDTO fragmentDTO = mapper.readValue(fragment, FragmentDTO.class);
-
-        log.debug("PARSED_FRAGMENT: {}", fragmentDTO);
-        return fragmentDTO;
+        return mapper.readValue(fragment, FragmentDTO.class);
     }
 
     private FragmentDTO parsePropertiesFragment(String fragment) {
-        log.debug("PROPERTIES_FORMAT_FRAGMENT: {}", fragment);
+        Validate.notNull(fragment, "fragment can not be null");
 
         FragmentDTO fragmentDTO = new FragmentDTO();
         Stream<String> lines = Arrays.stream(fragment.split("\n"));
@@ -88,7 +87,6 @@ public class ProvisioningServiceImpl implements ProvisioningService {
                 fragmentDTO.setTimeout(Integer.parseInt(timeout));
             }
         });
-        log.debug("PARSED_FRAGMENT: {}", fragmentDTO);
         return fragmentDTO;
     }
 }

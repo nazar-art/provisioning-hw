@@ -12,11 +12,6 @@ import org.apache.commons.lang.Validate;
 @UtilityClass
 public class ParserUtils {
 
-    public String removeAllNonDigits(String line) {
-        Validate.notEmpty(line, "line can't be null or empty");
-        return line.replaceAll("[^0-9]", "").trim();
-    }
-
     public String getPropertyValue(String line) {
         Validate.notEmpty(line, "line can't be null or empty");
 
@@ -25,7 +20,7 @@ public class ParserUtils {
             String[] array = line.split("=");
             result = array[1].trim();
         } else {
-            throw new IllegalArgumentException("Invalid property format for: " + line);
+            throw new IllegalArgumentException("Can NOT parse property value. Incorrect format: " + line);
         }
         return result;
     }

@@ -69,7 +69,6 @@ public class ProvisioningServiceImplTest {
                 .macAddress("mac-address-with-json-fragment")
                 .username("harry")
                 .password("potter")
-                .model(Device.DeviceModel.DESK)
                 .overrideFragment("{\"domain\":\"sip.anothertest.domain\",\"port\":\"7777\",\"timeout\":15}")
                 .build();
 
@@ -93,7 +92,6 @@ public class ProvisioningServiceImplTest {
                 .macAddress("mac-address-with-properties-fragment")
                 .username("harry")
                 .password("potter")
-                .model(Device.DeviceModel.DESK)
                 .overrideFragment("domain=sip.propertiestest.domain\nport=9090\ntimeout=25")
                 .build();
 
@@ -116,13 +114,13 @@ public class ProvisioningServiceImplTest {
         provisioningService.getProvisioningFile("");
     }
 
-    @Test(expected = NotPresentedInDbException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void ifMacAddressIsNullThrowException() {
         provisioningService.getProvisioningFile(null);
     }
 
     @Test(expected = NotPresentedInDbException.class)
     public void ifMacAddressIsWrongThrowException() {
-        provisioningService.getProvisioningFile("mac-address-incorrect-value");
+        provisioningService.getProvisioningFile("mac-address-incorrect-path");
     }
 }
