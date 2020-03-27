@@ -7,6 +7,7 @@ import com.voverc.provisioning.entity.ConfigurationFileResponse;
 import com.voverc.provisioning.entity.Device;
 import com.voverc.provisioning.exception.NotPresentedInDbException;
 import com.voverc.provisioning.repository.DeviceRepository;
+import com.voverc.provisioning.utils.ParserUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,6 @@ import java.util.stream.Stream;
 import static com.voverc.provisioning.dto.OverrideFragment.DOMAIN;
 import static com.voverc.provisioning.dto.OverrideFragment.PORT;
 import static com.voverc.provisioning.dto.OverrideFragment.TIMEOUT;
-import static com.voverc.provisioning.utils.ParserUtils.getPropertyValue;
-import static com.voverc.provisioning.utils.ParserUtils.isPropertyFormat;
 
 
 @Slf4j
@@ -48,14 +47,13 @@ public class ProvisioningServiceImpl implements ProvisioningService {
         if (device.getOverrideFragment() != null) {
 
             String fragment = device.getOverrideFragment();
-            FragmentDTO dto = (isPropertyFormat(fragment)) ?
+            FragmentDTO dto = (ParserUtils.isPropertyFormat(fragment)) ?
                     parsePropertiesFragment(fragment) :
                     parseJsonFragment(fragment);
 
             BeanUtils.copyProperties(dto, fileResponse);
         }
 
-        log.debug("For MAC_ADDRESS: {}, CONFIGURATION_FILE: {}", macAddress, fileResponse);
         return fileResponse;
     }
 
@@ -76,14 +74,14 @@ public class ProvisioningServiceImpl implements ProvisioningService {
 
         lines.forEach(line -> {
             if (line.contains(DOMAIN.getLowerCaseName())) {
-                fragmentDTO.setDomain(getPropertyValue(line));
+                fragmentDTO.setDomain(ParserUtils.getPropertyValue(line));
 
             } else if (line.contains(PORT.getLowerCaseName())) {
-                String port = getPropertyValue(line);
+                String port = ParserUtils.getPropertyValue(line);
                 fragmentDTO.setPort(Integer.parseInt(port));
 
             } else if (line.contains(TIMEOUT.getLowerCaseName())) {
-                String timeout = getPropertyValue(line);
+                String timeout = ParserUtils.getPropertyValue(line);
                 fragmentDTO.setTimeout(Integer.parseInt(timeout));
             }
         });

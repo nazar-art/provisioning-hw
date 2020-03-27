@@ -29,7 +29,12 @@ public class ProvisioningController {
      * Exception Handlers:
      */
     @ExceptionHandler(NotPresentedInDbException.class)
-    public ResponseEntity notPresentedInDbHandler(NotPresentedInDbException ex) {
+    public ResponseEntity notPresentedInDbHandler() {
+        return ResponseEntity.badRequest().build();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity incorrectArgumentHandler() {
         return ResponseEntity.badRequest().build();
     }
 }
