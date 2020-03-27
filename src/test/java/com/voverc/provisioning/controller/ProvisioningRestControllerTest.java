@@ -34,16 +34,6 @@ public class ProvisioningRestControllerTest {
 
     private MockMvc mockMvc;
 
-    private ConfigurationFileResponse response = ConfigurationFileResponse.builder()
-            .username("A")
-            .password("password")
-            .domain("test.domain.com")
-            .port(1715)
-            .codec("SO")
-            .codec("GB")
-            .timeout(5)
-            .build();
-
     @Before
     public void init() {
         mockMvc = MockMvcBuilders
@@ -53,6 +43,16 @@ public class ProvisioningRestControllerTest {
 
     @Test
     public void configurationFileIsReturnedForMacAddress() throws Exception {
+        ConfigurationFileResponse response = ConfigurationFileResponse.builder()
+                .username("A")
+                .password("password")
+                .domain("test.domain.com")
+                .port(1715)
+                .codec("SO")
+                .codec("GB")
+                .timeout(5)
+                .build();
+
         when(provisioningService.getProvisioningFile("aa-bb-cc")).thenReturn(response);
 
         mockMvc.perform(get("/api/v1/provisioning/aa-bb-cc")
@@ -68,12 +68,5 @@ public class ProvisioningRestControllerTest {
                 .andExpect(jsonPath("$.codecs", hasItem("SO")))
                 .andExpect(jsonPath("$.codecs", hasItem("GB")))
                 .andExpect(jsonPath("$.timeout").value("5"));
-    }
-
-    @Test
-    public void ifMacAddressIsWrongThrowException() throws Exception {
-        mockMvc.perform(get("/api/v1/provisioning/wrong-mac-address")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
     }
 }

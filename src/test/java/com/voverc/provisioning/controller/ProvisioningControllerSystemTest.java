@@ -72,7 +72,10 @@ public class ProvisioningControllerSystemTest {
                 )));
     }
 
-
-
-
+    @Test
+    public void ifMacAddressIsWrongThrowException() throws Exception {
+        mockMvc.perform(get("/api/v1/provisioning/wrong-mac-address")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
 }
