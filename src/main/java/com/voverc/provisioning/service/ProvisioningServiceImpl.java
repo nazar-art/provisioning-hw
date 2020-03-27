@@ -27,8 +27,8 @@ import static com.voverc.provisioning.dto.OverrideFragment.TIMEOUT;
 @AllArgsConstructor
 public class ProvisioningServiceImpl implements ProvisioningService {
 
-    private ProvisioningProperties provisioningProperties;
     private DeviceRepository deviceRepository;
+    private ProvisioningProperties provisioningProperties;
 
     @Override
     public ConfigurationFileResponse getProvisioningFile(String macAddress) {

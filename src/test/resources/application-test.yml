@@ -1,0 +1,12 @@
+
+logging:
+  level:
+    com:
+      voverc:
+        provisioning: debug
+
+provisioning:
+  domain: sip.test.com
+  port: 6090
+  codecs: G911,G922
+
