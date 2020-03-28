@@ -2,7 +2,6 @@ package com.voverc.provisioning.entity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.voverc.provisioning.dto.FragmentDTO;
-import com.voverc.provisioning.utils.ParserUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -53,7 +52,7 @@ public class Device {
         if (overrideFragment == null || overrideFragment.isEmpty())
             return Optional.empty();
 
-        return ParserUtils.isPropertyFormat(overrideFragment) ?
+        return isPropertyFormat(overrideFragment) ?
                 parsePropertiesFragment() :
                 parseJsonFragment();
     }
@@ -65,22 +64,31 @@ public class Device {
     }
 
     private Optional<FragmentDTO> parsePropertiesFragment() {
-        FragmentDTO fragmentDTO = new FragmentDTO();
+        FragmentDTO dto = new FragmentDTO();
         Stream<String> lines = Arrays.stream(overrideFragment.split("\n"));
 
         lines.forEach(line -> {
             if (line.contains(DOMAIN.getLowerCaseName())) {
-                fragmentDTO.setDomain(ParserUtils.getPropertyValue(line));
+                dto.setDomain(getPropertyValue(line));
 
             } else if (line.contains(PORT.getLowerCaseName())) {
-                String port = ParserUtils.getPropertyValue(line);
-                fragmentDTO.setPort(Integer.parseInt(port));
+                String port = getPropertyValue(line);
+                dto.setPort(Integer.parseInt(port));
 
             } else if (line.contains(TIMEOUT.getLowerCaseName())) {
-                String timeout = ParserUtils.getPropertyValue(line);
-                fragmentDTO.setTimeout(Integer.parseInt(timeout));
+                String timeout = getPropertyValue(line);
+                dto.setTimeout(Integer.parseInt(timeout));
             }
         });
-        return Optional.of(fragmentDTO);
+        return Optional.of(dto);
+    }
+
+    private boolean isPropertyFormat(String line) {
+        return line.contains("=");
+    }
+
+    private String getPropertyValue(String line) {
+        String[] array = line.split("=");
+        return array[1].trim();
     }
 }

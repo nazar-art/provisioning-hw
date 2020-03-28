@@ -11,6 +11,8 @@ import org.apache.commons.lang.Validate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Slf4j
 @Service
@@ -21,6 +23,7 @@ public class ProvisioningServiceImpl implements ProvisioningService {
     private ProvisioningProperties provisioningProperties;
 
     @Override
+    @Transactional
     public ConfigurationFileResponse getProvisioningFile(String macAddress) {
         Validate.notNull(macAddress, "mac address can not be null");
 
