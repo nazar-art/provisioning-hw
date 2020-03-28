@@ -109,7 +109,7 @@ public class ProvisioningServiceImplTest {
         assertThat(provisioningService.getProvisioningFile("mac-address-with-properties-fragment"), is(expectedResponse));
     }
 
-    @Test(expected = NotPresentedInDbException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void ifMacAddressIsEmptyThrowException() {
         provisioningService.getProvisioningFile("");
     }

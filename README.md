@@ -34,9 +34,9 @@ The two device types use the following configuration file formats:
 ```
 username=john         # From database
 password=doe          # From database
-domain=sip.voverc.com # From application.properties
-port=5060             # From application.properties
-codecs=G711,G729,OPUS # From application.properties
+domain=sip.voverc.com # From application.yml
+port=5060             # From application.yml
+codecs=G711,G729,OPUS # From application.yml
 ```
 
 #### Conference: JSON file ####
@@ -63,8 +63,8 @@ properties at runtime. Let's see the two cases:
 ```
 username=john                # From database
 password=doe                 # From database
-domain=sip.anotherdomain.com # From override fragment (replaced application.properties)
-port=5161                    # From override fragment (replaced application.properties)
+domain=sip.anotherdomain.com # From override fragment (replaced application.yml)
+port=5161                    # From override fragment (replaced application.yml)
 codecs=G711,G729,OPUS        # From application.properties
 timeout=10                   # From override fragment (added)
 ```

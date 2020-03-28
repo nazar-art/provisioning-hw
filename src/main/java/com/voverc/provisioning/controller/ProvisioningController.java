@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class ProvisioningController {
 
-    private ProvisioningServiceImpl provisioningService;
-
+    private final ProvisioningServiceImpl provisioningService;
 
     @GetMapping(value = "/provisioning/{macAddress}")
     public ResponseEntity<ConfigurationFileResponse> getProvisioningFile(@PathVariable String macAddress) {

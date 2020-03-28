@@ -3,7 +3,7 @@ package com.voverc.provisioning.dto;
 /**
  * @author Nazar Lelyak.
  */
-public enum OverrideFragment {
+public enum FragmentNames {
     DOMAIN, PORT, TIMEOUT;
 
     public String getLowerCaseName() {
