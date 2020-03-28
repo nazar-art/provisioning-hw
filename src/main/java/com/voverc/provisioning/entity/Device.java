@@ -17,9 +17,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static com.voverc.provisioning.dto.OverrideFragment.DOMAIN;
-import static com.voverc.provisioning.dto.OverrideFragment.PORT;
-import static com.voverc.provisioning.dto.OverrideFragment.TIMEOUT;
+import static com.voverc.provisioning.dto.FragmentName.DOMAIN;
+import static com.voverc.provisioning.dto.FragmentName.PORT;
+import static com.voverc.provisioning.dto.FragmentName.TIMEOUT;
 
 @Data
 @Entity

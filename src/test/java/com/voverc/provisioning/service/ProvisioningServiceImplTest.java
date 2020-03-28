@@ -17,6 +17,8 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -122,5 +124,32 @@ public class ProvisioningServiceImplTest {
     @Test(expected = NotPresentedInDbException.class)
     public void ifMacAddressIsWrongThrowException() {
         provisioningService.getProvisioningFile("mac-address-incorrect-path");
+    }
+
+    @Test
+    public void configurationFilesShouldBeCachedByMacAddress() {
+        Device device = Device.builder()
+                .macAddress("a")
+                .username("albus")
+                .password("dumbledore")
+                .overrideFragment("domain=sip.hogwarts.domain\nport=8989\ntimeout=42")
+                .build();
+
+        ConfigurationFileResponse expectedResponse = ConfigurationFileResponse.builder()
+                .username("albus")
+                .password("dumbledore")
+                .domain("sip.hogwarts.domain")
+                .port(8989)
+                .codecs(properties.getCodecs())
+                .timeout(42)
+                .build();
+
+        when(repository.findById("a")).thenReturn(Optional.of(device));
+
+        assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
+        assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
+        assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
+
+        verify(repository, times(1)).findById("a");
     }
 }
