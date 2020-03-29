@@ -30,17 +30,19 @@ public class ProvisioningServiceImplTest {
     @Mock
     private DeviceRepository repository;
 
-    private ProvisioningProperties properties = ProvisioningProperties.builder()
-            .domain("sip.test.com")
-            .port(9999)
-            .codec("G911")
-            .codec("G922")
-            .build();
+    private ProvisioningProperties properties;
 
     private ProvisioningService provisioningService;
 
     @Before
     public void init() {
+        properties = ProvisioningProperties.builder()
+                .domain("sip.test.com")
+                .port(9999)
+                .codec("G911")
+                .codec("G922")
+                .build();
+
         provisioningService = new ProvisioningServiceImpl(repository, properties);
     }
 
