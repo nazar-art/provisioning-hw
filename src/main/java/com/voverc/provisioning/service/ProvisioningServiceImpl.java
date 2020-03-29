@@ -2,9 +2,9 @@ package com.voverc.provisioning.service;
 
 import com.google.common.collect.Maps;
 import com.voverc.provisioning.config.ProvisioningProperties;
-import com.voverc.provisioning.entity.ConfigurationFileResponse;
-import com.voverc.provisioning.entity.Device;
 import com.voverc.provisioning.exception.NotPresentedInDbException;
+import com.voverc.provisioning.model.ConfigurationFileResponse;
+import com.voverc.provisioning.model.Device;
 import com.voverc.provisioning.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

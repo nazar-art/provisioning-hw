@@ -1,6 +1,6 @@
 package com.voverc.provisioning.controller;
 
-import com.voverc.provisioning.entity.ConfigurationFileResponse;
+import com.voverc.provisioning.model.ConfigurationFileResponse;
 import com.voverc.provisioning.service.ProvisioningServiceImpl;
 import org.junit.Before;
 import org.junit.Test;

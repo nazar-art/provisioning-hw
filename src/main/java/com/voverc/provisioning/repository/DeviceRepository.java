@@ -1,6 +1,6 @@
 package com.voverc.provisioning.repository;
 
-import com.voverc.provisioning.entity.Device;
+import com.voverc.provisioning.model.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

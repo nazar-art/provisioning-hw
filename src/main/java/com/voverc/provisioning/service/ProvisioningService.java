@@ -1,6 +1,6 @@
 package com.voverc.provisioning.service;
 
-import com.voverc.provisioning.entity.ConfigurationFileResponse;
+import com.voverc.provisioning.model.ConfigurationFileResponse;
 
 public interface ProvisioningService {
 

@@ -1,4 +1,4 @@
-package com.voverc.provisioning.entity;
+package com.voverc.provisioning.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.voverc.provisioning.dto.FragmentDTO;
@@ -17,9 +17,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static com.voverc.provisioning.dto.FragmentName.DOMAIN;
-import static com.voverc.provisioning.dto.FragmentName.PORT;
-import static com.voverc.provisioning.dto.FragmentName.TIMEOUT;
 
 @Data
 @Entity
@@ -68,14 +65,14 @@ public class Device {
         Stream<String> lines = Arrays.stream(overrideFragment.split("\n"));
 
         lines.forEach(line -> {
-            if (line.contains(DOMAIN.getLowerCaseName())) {
+            if (line.contains(FragmentName.DOMAIN.getLowerCaseName())) {
                 dto.setDomain(getPropertyValue(line));
 
-            } else if (line.contains(PORT.getLowerCaseName())) {
+            } else if (line.contains(FragmentName.PORT.getLowerCaseName())) {
                 String port = getPropertyValue(line);
                 dto.setPort(Integer.parseInt(port));
 
-            } else if (line.contains(TIMEOUT.getLowerCaseName())) {
+            } else if (line.contains(FragmentName.TIMEOUT.getLowerCaseName())) {
                 String timeout = getPropertyValue(line);
                 dto.setTimeout(Integer.parseInt(timeout));
             }
@@ -90,5 +87,13 @@ public class Device {
     private String getPropertyValue(String line) {
         String[] array = line.split("=");
         return array[1].trim();
+    }
+
+    private enum FragmentName {
+        DOMAIN, PORT, TIMEOUT;
+
+        public String getLowerCaseName() {
+            return this.toString().toLowerCase();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.voverc.provisioning.entity;
+package com.voverc.provisioning.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

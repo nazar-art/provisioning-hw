@@ -1,7 +1,7 @@
 package com.voverc.provisioning.controller;
 
-import com.voverc.provisioning.entity.ConfigurationFileResponse;
 import com.voverc.provisioning.exception.NotPresentedInDbException;
+import com.voverc.provisioning.model.ConfigurationFileResponse;
 import com.voverc.provisioning.service.ProvisioningServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
