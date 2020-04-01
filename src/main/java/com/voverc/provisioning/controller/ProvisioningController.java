@@ -1,7 +1,6 @@
 package com.voverc.provisioning.controller;
 
 import com.voverc.provisioning.exception.NotPresentedInDbException;
-import com.voverc.provisioning.model.ConfigurationFileResponse;
 import com.voverc.provisioning.service.ProvisioningServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class ProvisioningController {
     private final ProvisioningServiceImpl provisioningService;
 
     @GetMapping(value = "/provisioning/{macAddress}")
-    public ResponseEntity<ConfigurationFileResponse> getProvisioningFile(@PathVariable String macAddress) {
+    public ResponseEntity<String> getProvisioningFile(@PathVariable String macAddress) {
         return ResponseEntity.ok(provisioningService.getProvisioningFile(macAddress));
     }
 
@@ -29,7 +28,7 @@ public class ProvisioningController {
      */
     @ExceptionHandler(NotPresentedInDbException.class)
     public ResponseEntity notPresentedInDbHandler() {
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

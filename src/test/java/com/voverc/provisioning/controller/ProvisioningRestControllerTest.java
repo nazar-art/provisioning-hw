@@ -1,6 +1,5 @@
 package com.voverc.provisioning.controller;
 
-import com.voverc.provisioning.model.ConfigurationFileResponse;
 import com.voverc.provisioning.service.ProvisioningServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,13 +10,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -41,31 +36,13 @@ public class ProvisioningRestControllerTest {
 
     @Test
     public void configurationFileIsReturnedForMacAddress() throws Exception {
-        ConfigurationFileResponse expectedResponse = ConfigurationFileResponse.builder()
-                .username("A")
-                .password("password")
-                .domain("test.domain.com")
-                .port(1715)
-                .codec("SO")
-                .codec("GB")
-                .timeout(5)
-                .build();
+        String expected = "Test content";
 
-        when(provisioningService.getProvisioningFile("aa-bb-cc")).thenReturn(expectedResponse);
+        when(provisioningService.getProvisioningFile("aa")).thenReturn(expected);
 
-        mockMvc.perform(get("/api/v1/provisioning/aa-bb-cc")
+        mockMvc.perform(get("/api/v1/provisioning/aa")
                 .accept(APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.username").value(expectedResponse.getUsername()))
-                .andExpect(jsonPath("$.password").value(expectedResponse.getPassword()))
-                .andExpect(jsonPath("$.domain").value(expectedResponse.getDomain()))
-                .andExpect(jsonPath("$.port").value(expectedResponse.getPort()))
-                .andExpect(jsonPath("$.codecs").isArray())
-                .andExpect(jsonPath("$.codecs", hasSize(2)))
-                .andExpect(jsonPath("$.codecs", hasItem(expectedResponse.getCodecs().get(0))))
-                .andExpect(jsonPath("$.codecs", hasItem(expectedResponse.getCodecs().get(1))))
-                .andExpect(jsonPath("$.timeout").value(expectedResponse.getTimeout()));
+                .andExpect(status().isOk());
     }
 
     @Test
