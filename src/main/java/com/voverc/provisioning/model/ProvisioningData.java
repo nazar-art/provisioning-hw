@@ -10,12 +10,16 @@ import java.util.Map;
  */
 public class ProvisioningData {
 
-    private final Gson gson = new Gson();
-    private final Map<String, String> data = Maps.newLinkedHashMap();
+    private final Gson gson;
+    private final Map<String, String> data;
 
-    public Map<String, String> put(String key, String value) {
+    public ProvisioningData() {
+        gson = new Gson();
+        data = Maps.newLinkedHashMap();
+    }
+
+    public void put(String key, String value) {
         data.put(key, value);
-        return data;
     }
 
     public void put(CommonConfigurationKeys key, String value) {
@@ -23,11 +27,8 @@ public class ProvisioningData {
     }
 
     public void putAll(Map<String, String> map) {
-        map.forEach(this::put);
-    }
-
-    public String get(String key) {
-        return data.get(key);
+//        map.forEach(this::put);
+        data.putAll(map);
     }
 
     public String toJson() {

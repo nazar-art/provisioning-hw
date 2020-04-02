@@ -17,9 +17,9 @@ import static com.voverc.provisioning.model.CommonConfigurationKeys.USERNAME;
 /**
  * @author Nazar Lelyak.
  */
-public abstract class BaseConfigurationDataProvider {
+public interface ConfigurationDataProvider {
 
-    public ProvisioningData getConfiguration(Device device, ProvisioningProperties properties) {
+    default ProvisioningData getConfiguration(Device device, ProvisioningProperties properties) {
         ProvisioningData data = new ProvisioningData();
 
         data.put(USERNAME, device.getUsername());
@@ -35,7 +35,7 @@ public abstract class BaseConfigurationDataProvider {
         return data;
     }
 
-    protected abstract Map<String, String> parseOverrideFragments(String fragment);
+    Map<String, String> parseOverrideFragments(String fragment);
 
-    public abstract String formatProvisioningData(ProvisioningData provisioningData);
+    String formatProvisioningData(ProvisioningData provisioningData);
 }

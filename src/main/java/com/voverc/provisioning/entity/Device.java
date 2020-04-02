@@ -1,5 +1,6 @@
 package com.voverc.provisioning.entity;
 
+import com.voverc.provisioning.model.DeviceModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +34,4 @@ public class Device {
     private String username;
 
     private String password;
-
-    public enum DeviceModel {
-        CONFERENCE,
-        DESK
-    }
 }

@@ -13,13 +13,13 @@ import java.util.Properties;
 /**
  * @author Nazar Lelyak.
  */
-public class DeskConfigurationDP extends BaseConfigurationDataProvider {
+public class DeskConfigurationDP implements ConfigurationDataProvider {
 
     private Properties properties = new Properties();
 
     @Override
     @SneakyThrows
-    protected Map<String, String> parseOverrideFragments(String fragment) {
+    public Map<String, String> parseOverrideFragments(String fragment) {
         @Cleanup
         BufferedReader reader = new BufferedReader(new StringReader(fragment));
 

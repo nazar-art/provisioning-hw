@@ -2,11 +2,12 @@ package com.voverc.provisioning.service;
 
 import com.google.common.collect.Maps;
 import com.voverc.provisioning.config.ProvisioningProperties;
-import com.voverc.provisioning.dataprovider.BaseConfigurationDataProvider;
+import com.voverc.provisioning.dataprovider.ConfigurationDataProvider;
 import com.voverc.provisioning.dataprovider.ConferenceConfigurationDP;
 import com.voverc.provisioning.dataprovider.DeskConfigurationDP;
 import com.voverc.provisioning.entity.Device;
 import com.voverc.provisioning.exception.NotPresentedInDbException;
+import com.voverc.provisioning.model.DeviceModel;
 import com.voverc.provisioning.model.ProvisioningData;
 import com.voverc.provisioning.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,22 +40,26 @@ public class ProvisioningServiceImpl implements ProvisioningService {
         Device device = deviceRepository.findById(macAddress)
                 .orElseThrow(() -> new NotPresentedInDbException(macAddress));
 
-        BaseConfigurationDataProvider dataProvider = getConfigurationProvider(device.getModel());
-        ProvisioningData configuration = dataProvider.getConfiguration(device, provisioningProperties);
+        ConfigurationDataProvider dataProvider = getConfigurationProvider(device.getModel());
+        ProvisioningData provisioningData = dataProvider.getConfiguration(device, provisioningProperties);
 
-        String response = dataProvider.formatProvisioningData(configuration);
+        String response = dataProvider.formatProvisioningData(provisioningData);
 
         cache.putIfAbsent(macAddress, response);
         return response;
     }
 
-    private BaseConfigurationDataProvider getConfigurationProvider(Device.DeviceModel model) {
-        if (model == Device.DeviceModel.DESK) {
-            return new DeskConfigurationDP();
+    private ConfigurationDataProvider getConfigurationProvider(DeviceModel model) {
 
-        } else if (model == Device.DeviceModel.CONFERENCE) {
-            return new ConferenceConfigurationDP();
+        switch (model) {
+            case DESK:
+                return new DeskConfigurationDP();
+
+            case CONFERENCE:
+                return new ConferenceConfigurationDP();
+
+            default:
+                throw new RuntimeException("Unknown device model: " + model);
         }
-        throw new RuntimeException("Unknown device model: " + model);
     }
 }

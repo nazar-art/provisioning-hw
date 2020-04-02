@@ -10,13 +10,12 @@ import java.util.stream.Collectors;
 /**
  * @author Nazar Lelyak.
  */
-public class ConferenceConfigurationDP extends BaseConfigurationDataProvider {
+public class ConferenceConfigurationDP implements ConfigurationDataProvider {
 
     private JsonParser jsonParser = JsonParserFactory.getJsonParser();
 
     @Override
-    protected Map<String, String> parseOverrideFragments(String fragment) {
-
+    public Map<String, String> parseOverrideFragments(String fragment) {
         return jsonParser.parseMap(fragment)
                 .entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> String.valueOf(entry.getValue())));
