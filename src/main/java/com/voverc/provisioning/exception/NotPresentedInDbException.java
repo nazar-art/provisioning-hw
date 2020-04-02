@@ -1,9 +1,13 @@
 package com.voverc.provisioning.exception;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * @author Nazar Lelyak.
  */
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class NotPresentedInDbException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

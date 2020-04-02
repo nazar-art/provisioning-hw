@@ -1,10 +1,8 @@
 package com.voverc.provisioning.controller;
 
-import com.voverc.provisioning.exception.NotPresentedInDbException;
 import com.voverc.provisioning.service.ProvisioningServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,18 +19,5 @@ public class ProvisioningController {
     @GetMapping(value = "/provisioning/{macAddress}")
     public ResponseEntity<String> getProvisioningFile(@PathVariable String macAddress) {
         return ResponseEntity.ok(provisioningService.getProvisioningFile(macAddress));
-    }
-
-    /**
-     * Exception Handlers:
-     */
-    @ExceptionHandler(NotPresentedInDbException.class)
-    public ResponseEntity notPresentedInDbHandler() {
-        return ResponseEntity.notFound().build();
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity incorrectArgumentHandler() {
-        return ResponseEntity.badRequest().build();
     }
 }
