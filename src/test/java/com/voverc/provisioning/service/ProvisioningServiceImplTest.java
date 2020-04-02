@@ -72,7 +72,7 @@ public class ProvisioningServiceImplTest {
 
         when(repository.findById(notNull())).thenReturn(Optional.of(testDevice));
 
-        String expectedResponse = "username=harry\npassword=potter\ndomain=sip.propertiestest.domain\nport=9090\ncodecs=[G911, G922]\ntimeout=25\n";
+        String expectedResponse = "username=harry\npassword=potter\ndomain=sip.propertiestest.domain\nport=9090\ncodecs=[G911, G922]\ntimeout=25";
         assertThat(provisioningService.getProvisioningFile("mac-address-for-test"), is(expectedResponse));
     }
 
@@ -98,7 +98,7 @@ public class ProvisioningServiceImplTest {
 
         when(repository.findById("a")).thenReturn(Optional.of(testDevice));
 
-        String expectedResponse = "username=harry\npassword=potter\ndomain=sip.test.com\nport=9999\ncodecs=[G911, G922]\n";
+        String expectedResponse = "username=harry\npassword=potter\ndomain=sip.test.com\nport=9999\ncodecs=[G911, G922]";
 
         assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
         assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
