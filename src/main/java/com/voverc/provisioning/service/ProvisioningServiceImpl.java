@@ -2,8 +2,8 @@ package com.voverc.provisioning.service;
 
 import com.google.common.collect.Maps;
 import com.voverc.provisioning.config.ProvisioningProperties;
-import com.voverc.provisioning.dataprovider.ConfigurationDataProvider;
 import com.voverc.provisioning.dataprovider.ConferenceConfigurationDP;
+import com.voverc.provisioning.dataprovider.ConfigurationDataProvider;
 import com.voverc.provisioning.dataprovider.DeskConfigurationDP;
 import com.voverc.provisioning.entity.Device;
 import com.voverc.provisioning.exception.NotPresentedInDbException;

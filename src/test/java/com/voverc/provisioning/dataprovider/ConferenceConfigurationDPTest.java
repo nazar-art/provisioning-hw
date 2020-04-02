@@ -6,7 +6,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Nazar Lelyak.

@@ -99,7 +99,7 @@ public class ProvisioningServiceImplTest {
         when(repository.findById("a")).thenReturn(Optional.of(testDevice));
 
         String expectedResponse = "username=harry\npassword=potter\ndomain=sip.test.com\nport=9999\ncodecs=[G911, G922]\n";
-        
+
         assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
         assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
         assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));

@@ -2,8 +2,6 @@ package com.voverc.provisioning.repository;
 
 import com.voverc.provisioning.entity.Device;
 import com.voverc.provisioning.model.DeviceModel;
-import lombok.AllArgsConstructor;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Nazar Lelyak.
@@ -23,7 +24,7 @@ import static org.junit.Assert.*;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 public class DeviceRepositoryTest {
-    
+
     @Autowired
     private TestEntityManager entityManager;
 
@@ -47,7 +48,6 @@ public class DeviceRepositoryTest {
 
     @Test
     public void testDeviceNotFoundByMacAddress() {
-        Optional<Device> device = deviceRepository.findById("hello");
-        assertEquals(Optional.empty(), device);
+        assertThat(deviceRepository.findById("unknown"), is(equalTo(Optional.empty())));
     }
 }

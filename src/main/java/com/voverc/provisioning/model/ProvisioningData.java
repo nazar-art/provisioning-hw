@@ -40,6 +40,4 @@ public class ProvisioningData {
         data.forEach((key, value) -> sb.append(key).append("=").append(value).append(System.lineSeparator()));
         return sb.toString();
     }
-
-
 }
