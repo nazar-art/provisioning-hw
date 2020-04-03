@@ -16,6 +16,8 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -79,16 +81,19 @@ public class ProvisioningServiceImplTest {
     @Test(expected = IllegalArgumentException.class)
     public void ifMacAddressIsEmptyThrowException() {
         provisioningService.getProvisioningFile("");
+        fail("IllegalArgumentException should be thrown");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void ifMacAddressIsNullThrowException() {
         provisioningService.getProvisioningFile(null);
+        fail("IllegalArgumentException should be thrown");
     }
 
     @Test(expected = NotPresentedInDbException.class)
     public void ifMacAddressIsWrongThrowException() {
         provisioningService.getProvisioningFile("mac-address-incorrect-path");
+        fail("NotPresentedInDbException should be thrown");
     }
 
     @Test
@@ -105,5 +110,16 @@ public class ProvisioningServiceImplTest {
         assertThat(provisioningService.getProvisioningFile("a"), is(expectedResponse));
 
         verify(repository, times(1)).findById("a");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testWhenDeviceModelIsUnknownExceptionIsThrown() {
+        testDevice.setModel(null);
+        testDevice.setMacAddress("b");
+
+        when(repository.findById(anyString())).thenReturn(Optional.of(testDevice));
+
+        provisioningService.getProvisioningFile("b");
+        fail("Runtime exception should be thrown");
     }
 }
