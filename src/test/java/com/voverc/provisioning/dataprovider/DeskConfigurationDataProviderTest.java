@@ -6,6 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Map;
 
+import static com.voverc.provisioning.model.CommonConfigurationKeys.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -23,6 +24,6 @@ public class DeskConfigurationDataProviderTest {
 
         assertNotNull(actualResult);
         assertEquals(3, actualResult.size());
-        assertEquals("5161", actualResult.get(CommonConfigurationKeys.PORT.getLowerName()));
+        assertEquals("5161", actualResult.get(PORT.getLowerName()));
     }
 }

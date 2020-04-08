@@ -6,6 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Map;
 
+import static com.voverc.provisioning.model.CommonConfigurationKeys.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -23,6 +24,6 @@ public class ConferenceConfigurationDPTest {
 
         assertNotNull(actualResult);
         assertEquals(3, actualResult.size());
-        assertEquals("sip.anotherdomain.com", actualResult.get(CommonConfigurationKeys.DOMAIN.getLowerName()));
+        assertEquals("sip.anotherdomain.com", actualResult.get(DOMAIN.getLowerName()));
     }
 }
