@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 import java.util.Map;
 
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProvisioningServiceImpl implements ProvisioningService {
@@ -50,7 +49,6 @@ public class ProvisioningServiceImpl implements ProvisioningService {
     }
 
     private ConfigurationDataProvider getConfigurationProvider(DeviceModel model) {
-
         switch (model) {
             case DESK:
                 return new DeskConfigurationDP();

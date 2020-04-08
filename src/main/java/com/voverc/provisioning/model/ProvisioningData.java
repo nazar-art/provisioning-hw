@@ -11,13 +11,8 @@ import java.util.stream.Collectors;
  */
 public class ProvisioningData {
 
-    private final Gson gson;
-    private final Map<String, String> data;
-
-    public ProvisioningData() {
-        gson = new Gson();
-        data = Maps.newLinkedHashMap();
-    }
+    private final Gson gson = new Gson();
+    private final Map<String, String> data = Maps.newLinkedHashMap();
 
     public void put(String key, String value) {
         data.put(key, value);
