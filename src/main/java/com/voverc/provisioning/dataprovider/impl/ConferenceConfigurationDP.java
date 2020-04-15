@@ -1,5 +1,6 @@
-package com.voverc.provisioning.dataprovider;
+package com.voverc.provisioning.dataprovider.impl;
 
+import com.voverc.provisioning.dataprovider.ConfigurationDataProvider;
 import com.voverc.provisioning.model.ProvisioningData;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;

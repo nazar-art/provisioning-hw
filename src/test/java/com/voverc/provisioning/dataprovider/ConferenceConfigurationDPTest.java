@@ -1,6 +1,6 @@
 package com.voverc.provisioning.dataprovider;
 
-import com.voverc.provisioning.model.CommonConfigurationKeys;
+import com.voverc.provisioning.dataprovider.impl.ConferenceConfigurationDP;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 

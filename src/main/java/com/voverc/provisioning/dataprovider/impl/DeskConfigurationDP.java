@@ -1,6 +1,7 @@
-package com.voverc.provisioning.dataprovider;
+package com.voverc.provisioning.dataprovider.impl;
 
 import com.google.common.collect.Maps;
+import com.voverc.provisioning.dataprovider.ConfigurationDataProvider;
 import com.voverc.provisioning.model.ProvisioningData;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
