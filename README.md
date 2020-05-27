@@ -122,3 +122,45 @@ These are the steps:
 3. You share the (public) repository link with the reviewer
 
 Note: The system will be tested by the reviewer on the sample data by running `results.sh`
+
+---
+
+You could use Docker for execution. Just execute `Dockerfile`.
+
+For checking IP address use:
+
+    docker inspect <container-id> | grep '"IPAddress"' | head -n 1
+    
+Output will be like:
+
+    "IPAddress": "172.17.0.2"    
+     
+You have to run Dockerfile and access running container by:
+
+    127.17.0.2:8080/api/v1/provisioning/aa-bb-cc-dd-ee-ff
+    
+Or use `http-client`:
+
+    http 172.17.0.2:8080/api/v1/provisioning/aa-bb-cc-dd-ee-ff
+    
+    HTTP/1.1 200 
+    Connection: keep-alive
+    Content-Length: 84
+    Content-Type: text/plain;charset=UTF-8
+    Date: Wed, 27 May 2020 18:32:41 GMT
+    Keep-Alive: timeout=60
+    
+    username=john
+    password=doe
+    domain=sip.voverc.com
+    port=5060
+    codecs=[G711, G729, OPUS]
+    
+Just change to another url
+    
+    http 172.17.0.2:8080/api/v1/provisioning/f1-e2-d3-c4-b5-a6
+    
+    http 172.17.0.2:8080/api/v1/provisioning/a1-b2-c3-d4-e5-f6
+    
+    http 172.17.0.2:8080/api/v1/provisioning/1a-2b-3c-4d-5e-6f
+
