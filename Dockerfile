@@ -1,5 +1,6 @@
 # For Java 8, try this
-FROM openjdk:8-jdk-alpine
+#FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk11:alpine-jre
 
 # For Java 11, try this
 #FROM adoptopenjdk/openjdk11:alpine-jre
