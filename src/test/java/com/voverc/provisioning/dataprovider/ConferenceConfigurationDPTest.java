@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 @ActiveProfiles("test")
 public class ConferenceConfigurationDPTest {
 
-    private ConfigurationDataProvider dataProvider = new ConferenceConfigurationDP();
+    private final ConfigurationDataProvider dataProvider = new ConferenceConfigurationDP();
 
     @Test
     public void testParseOverrideFragment() {

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 @ActiveProfiles("test")
 public class DeskConfigurationDataProviderTest {
 
-    private ConfigurationDataProvider dataProvider = new DeskConfigurationDP();
+    private final ConfigurationDataProvider dataProvider = new DeskConfigurationDP();
 
     @Test
     public void testOverrideFragments() {
