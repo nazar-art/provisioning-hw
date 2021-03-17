@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class ConferenceConfigurationDP implements ConfigurationDataProvider {
 
-    private JsonParser jsonParser = JsonParserFactory.getJsonParser();
+    private final JsonParser jsonParser = JsonParserFactory.getJsonParser();
 
     @Override
     public Map<String, String> parseOverrideFragments(String fragment) {
