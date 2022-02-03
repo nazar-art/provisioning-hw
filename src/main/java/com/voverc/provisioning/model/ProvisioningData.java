@@ -37,7 +37,7 @@ public class ProvisioningData {
 //        return sb.toString();
 
         return data.entrySet().stream()
-                .map((Map.Entry e) -> String.format("%s=%s", e.getKey(), e.getValue()))
+                .map((Map.Entry<String, String> e) -> String.format("%s=%s", e.getKey(), e.getValue()))
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 }
