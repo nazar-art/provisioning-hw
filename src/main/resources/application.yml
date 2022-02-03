@@ -22,3 +22,7 @@ provisioning:
   domain: sip.voverc.com
   port: 5060
   codecs: G711,G729,OPUS
+
+#logging:
+#  file:
+#    name: "log/prowisioning.log"
